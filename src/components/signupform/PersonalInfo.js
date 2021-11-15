@@ -13,39 +13,25 @@ import {
 import PageTitle from "../comon/PageTitle";
 import { UploadOutlined } from "@ant-design/icons";
 
-const PersonalInfo = () => {
+const { Option } = Select;
+
+const PersonalInfo = ({
+  personalDetails,
+  snapshotUpload,
+  validateMessages,
+}) => {
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
-  const { Option } = Select;
-  const validateMessages = {
-    required: "${label} is required!",
-    types: {
-      email: "${label} is not a valid email!",
-      number: "${label} is not a valid number!",
-    },
-    number: {
-      range: "${label} must be between ${min} and ${max}",
-    },
-  };
+
   const prefixSelector = (
-    <Form.Item name={["user", "countryCode"]} noStyle>
+    <Form.Item name={["Personal Info", "countryCode"]} noStyle>
       <Select style={{ width: 70 }}>
         <Option value="92">+92</Option>
       </Select>
     </Form.Item>
   );
-  const normFile = (e) => {
-    console.log("Upload event:", e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
-  };
-  const PersonalDetails = (values) => {
-    console.log(values);
-  };
   return (
     <Row>
       <Col span={4}></Col>
@@ -53,13 +39,13 @@ const PersonalInfo = () => {
         <PageTitle title={"Personal Information"} />
         <Form
           name="nest-messages"
-          onFinish={PersonalDetails}
+          onFinish={personalDetails}
           validateMessages={validateMessages}
         >
           <Row gutter={12}>
             <Col span={12}>
               <Form.Item
-                name={["user", "firstName"]}
+                name={["Personal Info", "firstName"]}
                 label="First Name"
                 rules={[{ required: true }]}
               >
@@ -68,7 +54,7 @@ const PersonalInfo = () => {
             </Col>
             <Col span={12}>
               <Form.Item
-                name={["user", "lastName"]}
+                name={["Personal Info", "lastName"]}
                 label="Last Name"
                 rules={[{ required: true }]}
               >
@@ -79,21 +65,21 @@ const PersonalInfo = () => {
           <Row gutter={12}>
             <Col span={12}>
               <Form.Item
-                name={["user", "email"]}
+                name={["Personal Info", "email"]}
                 label="Email"
-                rules={[{ type: "email" }]}
+                rules={[{ type: "email", required: true }]}
               >
                 <Input placeholder={"jhondoe@example.com"} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
-                name={["user", "phone"]}
+                name={["Personal Info", "phone"]}
                 label="Phone Number"
                 rules={[
                   {
+                    message: "Phone Number is required",
                     required: true,
-                    message: "Please input your phone number!",
                   },
                 ]}
               >
@@ -103,13 +89,17 @@ const PersonalInfo = () => {
           </Row>
           <Row gutter={12}>
             <Col span={12}>
-              <Form.Item label="DOB" name={["user", "DOB"]}>
+              <Form.Item
+                label="DOB"
+                rules={[{ required: true }]}
+                name={["Personal Info", "DOB"]}
+              >
                 <DatePicker />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
-                name={["user", "gender"]}
+                name={["Personal Info", "gender"]}
                 label="Gender"
                 rules={[{ required: true }]}
               >
@@ -124,7 +114,7 @@ const PersonalInfo = () => {
           <Row gutter={12}>
             <Col span={12}>
               <Form.Item
-                name={["user", "address"]}
+                name={["Personal Info", "address"]}
                 label="Address"
                 rules={[
                   {
@@ -137,7 +127,7 @@ const PersonalInfo = () => {
             </Col>
             <Col span={12}>
               <Form.Item
-                name={["user", "city"]}
+                name={["Personal Info", "city"]}
                 label="City"
                 rules={[
                   {
@@ -152,7 +142,7 @@ const PersonalInfo = () => {
           <Row gutter={12}>
             <Col span={12}>
               <Form.Item
-                name={["user", "State"]}
+                name={["Personal Info", "State"]}
                 label="State"
                 rules={[
                   {
@@ -165,10 +155,11 @@ const PersonalInfo = () => {
             </Col>
             <Col span={12}>
               <Form.Item
-                name={["user", "zipcode"]}
+                name={["Personal Info", "zipcode"]}
                 label="Zip Code"
                 rules={[
                   {
+                    type: "number",
                     required: true,
                   },
                 ]}
@@ -178,12 +169,18 @@ const PersonalInfo = () => {
             </Col>
           </Row>
           <Form.Item
-            name={["user", "snapshot"]}
+            name={["Personal Info", "snapshot"]}
             label="Upload"
             valuePropName="fileList"
-            getValueFromEvent={normFile}
+            getValueFromEvent={snapshotUpload}
           >
-            <Upload name="logo" action="/upload.do" listType="picture">
+            <Upload
+              name="snapshot"
+              listType="picture"
+              maxCount={2}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              accept=".png,.jpg,.jpeg"
+            >
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
           </Form.Item>
