@@ -1,6 +1,7 @@
 import { Col, Row } from "antd";
 import React from "react";
 import PageTitle from "../components/comon/PageTitle";
+import HaveInsurance from "../components/signupform/HaveInsurance";
 import PersonalInfo from "../components/signupform/PersonalInfo";
 function Form() {
   const snapshotUpload = (e) => {
@@ -10,6 +11,14 @@ function Form() {
 
     return e && e.fileList;
   };
+  const insuranceCardImage = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+
+    return e && e.fileList;
+  };
+
   const personalDetails = (values) => {
     console.log(values);
   };
@@ -23,9 +32,10 @@ function Form() {
       range: "${label} must be between ${min} and ${max}",
     },
   };
-  const beforeUpload = (e) => {
-    console.log("Before Upload -->", e);
+  const insuranceDetails = (values) => {
+    console.log(values);
   };
+
   return (
     <Row>
       <Col span={24}>
@@ -34,7 +44,11 @@ function Form() {
           snapshotUpload={snapshotUpload}
           personalDetails={personalDetails}
           validateMessages={validateMessages}
-          beforeUpload={beforeUpload}
+        />
+        <HaveInsurance
+          insuranceDetails={insuranceDetails}
+          validateMessages={validateMessages}
+          // insuranceCardImage={insuranceCardImage}
         />
       </Col>
     </Row>

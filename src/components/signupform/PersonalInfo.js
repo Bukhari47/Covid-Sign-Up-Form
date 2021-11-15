@@ -19,6 +19,7 @@ const PersonalInfo = ({
   personalDetails,
   snapshotUpload,
   validateMessages,
+  countryCode,
 }) => {
   const layout = {
     labelCol: { span: 8 },
