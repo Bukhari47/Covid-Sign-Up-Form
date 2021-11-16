@@ -1,10 +1,12 @@
 import { Col, Row } from "antd";
 import React from "react";
 import PageTitle from "../components/comon/PageTitle";
+import FamilyForm from "../components/signupform/FamilyForm";
 import HaveInsurance from "../components/signupform/HaveInsurance";
+import MultiStepForm from "../components/signupform/MultiStepForm";
 import PersonalInfo from "../components/signupform/PersonalInfo";
 function Form() {
-  const uploadImage = (e) => {
+  const snapshotUpload = (e) => {
     if (Array.isArray(e)) {
       return e;
     }
@@ -24,12 +26,16 @@ function Form() {
   const insuranceDetails = (values) => {
     console.log("Insurance Details", values);
   };
-
+  const familyDetails = (values) => {
+    console.log("Family Form", values);
+  };
   return (
     <Row>
       <Col span={24}>
         <PageTitle title={"Sign Up Form"} />
-        <PersonalInfo
+        {/* <MultiStepForm snapshotUpload={snapshotUpload} /> */}
+
+        {/* <PersonalInfo
           personalDetails={personalDetails}
           validateMessages={validateMessages}
           snapshotUpload={uploadImage}
@@ -39,6 +45,10 @@ function Form() {
           validateMessages={validateMessages}
           uploadCardImage={uploadImage}
         />
+        <FamilyForm
+          familyDetails={familyDetails}
+          validateMessages={validateMessages}
+        /> */}
       </Col>
     </Row>
   );
