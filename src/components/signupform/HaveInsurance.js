@@ -56,7 +56,6 @@ const InsuranceInfo = ({
           </Form.Item>
           {insurance ? (
             <>
-              {" "}
               <Form.Item
                 name={["Insurance Details", "insuranceCardNumber"]}
                 label="Insurance Card Number"

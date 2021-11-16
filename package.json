@@ -20,6 +20,8 @@
   "homepage": "https://github.com/Bukhari47/Covid-Sign-Up-Form#readme",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@ant-design/pro-card": "^1.18.1",
+    "@ant-design/pro-form": "^1.48.1",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
     "antd": "^4.16.13",
