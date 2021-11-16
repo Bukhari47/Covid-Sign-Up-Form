@@ -1,20 +1,23 @@
 import React from "react";
 import { Form, Input, Select, Button, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-
+import validator from "validator";
 const { Option } = { Select };
 
-const InsuranceForm = ({ insuranceDetails, validateMessages }) => {
-  const uploadImage = (e) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-
-    return e && e.fileList;
-  };
+const InsuranceForm = ({
+  insuranceDetails,
+  validateMessages,
+  uploadCardImage,
+}) => {
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
+  };
+
+  const verifyNumber = (e) => {
+    number = e.target.value;
+    console.log("object");
+    console.log(validator.isMobilePhone(number));
   };
   return (
     <Form
@@ -30,9 +33,13 @@ const InsuranceForm = ({ insuranceDetails, validateMessages }) => {
             message: "Phone Number is required",
             required: true,
           },
+          {
+            message: "Not a valid Phone Number",
+            type: tel,
+          },
         ]}
       >
-        <Input maxLength={9999999999999999} style={{ width: "100%" }} />
+        <Input style={{ width: "100%" }} />
       </Form.Item>
       <Form.Item
         name={["Insurance Details", "insuranceCompany"]}
@@ -58,8 +65,8 @@ const InsuranceForm = ({ insuranceDetails, validateMessages }) => {
       <Form.Item
         name={["Insurance Details", "Insurance Card"]}
         label="Upload front and back images of your insurance card"
-        valuePropName="fileList"
-        getValueFromEvent={uploadImage}
+        // valuePropName="fileList"
+        // getValueFromEvent={uploadCardImage}
       >
         <Upload
           name={["Insurance Details", "Insurance Card"]}

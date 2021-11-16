@@ -19,7 +19,6 @@ const PersonalInfo = ({
   personalDetails,
   snapshotUpload,
   validateMessages,
-  countryCode,
 }) => {
   const layout = {
     labelCol: { span: 8 },
@@ -48,7 +47,14 @@ const PersonalInfo = ({
               <Form.Item
                 name={["Personal Info", "firstName"]}
                 label="First Name"
-                rules={[{ required: true }]}
+                rules={[
+                  { required: true },
+                  {
+                    pattern: /^[a-zA-Z ]+$/,
+                    message:
+                      "Name does not contain Number or Speacial Character",
+                  },
+                ]}
               >
                 <Input placeholder={"John Doe"} />
               </Form.Item>
@@ -57,7 +63,14 @@ const PersonalInfo = ({
               <Form.Item
                 name={["Personal Info", "lastName"]}
                 label="Last Name"
-                rules={[{ required: true }]}
+                rules={[
+                  { required: true },
+                  {
+                    pattern: /^[a-zA-Z ]+$/,
+                    message:
+                      "Name does not contain Number or Speacial Character",
+                  },
+                ]}
               >
                 <Input placeholder={"John Doe"} />
               </Form.Item>
@@ -68,7 +81,14 @@ const PersonalInfo = ({
               <Form.Item
                 name={["Personal Info", "email"]}
                 label="Email"
-                rules={[{ type: "email", required: true }]}
+                rules={[
+                  { type: "email", required: true },
+                  {
+                    pattern:
+                      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: "Pattern should be in user@example.com",
+                  },
+                ]}
               >
                 <Input placeholder={"jhondoe@example.com"} />
               </Form.Item>
@@ -79,8 +99,12 @@ const PersonalInfo = ({
                 label="Phone Number"
                 rules={[
                   {
-                    message: "Phone Number is required",
                     required: true,
+                  },
+                  {
+                    pattern: /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/,
+                    message:
+                      "Phone Number should be in pattern +(123)-456-78-90",
                   },
                 ]}
               >
@@ -121,6 +145,10 @@ const PersonalInfo = ({
                   {
                     required: true,
                   },
+                  {
+                    pattern: /^[a-zA-Z0-9\s,'-]*$/,
+                    message: "Address does not conttain Special Charaters",
+                  },
                 ]}
               >
                 <Input />
@@ -133,6 +161,10 @@ const PersonalInfo = ({
                 rules={[
                   {
                     required: true,
+                  },
+                  {
+                    pattern: /^[a-zA-Z0-9\s,'-]*$/,
+                    message: "City does not conttain Special Charaters",
                   },
                 ]}
               >
@@ -149,6 +181,10 @@ const PersonalInfo = ({
                   {
                     required: true,
                   },
+                  {
+                    pattern: /^[a-zA-Z0-9\s,'-]*$/,
+                    message: "State does not conttain Special Charaters",
+                  },
                 ]}
               >
                 <Input />
@@ -163,6 +199,10 @@ const PersonalInfo = ({
                     type: "number",
                     required: true,
                   },
+                  {
+                    pattern: /(^\d{5}$)|(^\d{5}-\d{4}$)/,
+                    message: "Please specify a valid US zip code.",
+                  },
                 ]}
               >
                 <InputNumber />
@@ -171,8 +211,13 @@ const PersonalInfo = ({
           </Row>
           <Form.Item
             name={["Personal Info", "snapshot"]}
-            label="Upload"
-            valuePropName="fileList"
+            label="Snapshot"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+            valuePropName="Snapshot List"
             getValueFromEvent={snapshotUpload}
           >
             <Upload
@@ -187,7 +232,7 @@ const PersonalInfo = ({
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit">
-              Submit
+              Next
             </Button>
           </Form.Item>
         </Form>
