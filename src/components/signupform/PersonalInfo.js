@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col, Row, Select } from "antd";
+import { Col, Row } from "antd";
 import ProForm, {
   StepsForm,
   ProFormText,
@@ -10,22 +10,12 @@ import ProForm, {
   ProFormUploadButton,
 } from "@ant-design/pro-form";
 
+import { v4 as uuidv4 } from "uuid";
 import ProCard from "@ant-design/pro-card";
-const { Option } = Select;
 
 const PersonalInfo = () => {
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  };
-
-  const prefixSelector = (
-    <Form.Item name={["Personal Info", "countryCode"]} noStyle>
-      <Select style={{ width: 70 }}>
-        <Option value="92">+92</Option>
-      </Select>
-    </Form.Item>
-  );
+  const gender = ["Male", "Female", "Other"];
+  console.log("UUID", uuidv4());
   return (
     <>
       <ProCard
@@ -39,6 +29,13 @@ const PersonalInfo = () => {
           maxWidth: "100%",
         }}
       >
+        <ProFormText
+          name={["Personal Info", "Personal UUID"]}
+          width="lg"
+          label="ID"
+          value={uuidv4()}
+          disabled
+        />
         <Row>
           <Col span={12}>
             <ProFormText
@@ -103,7 +100,8 @@ const PersonalInfo = () => {
                   message: "Please enter your phone number! ",
                 },
                 {
-                  pattern: /^\(?(\d{4})\)?[- ]?(\d{3})[- ]?(\d{4})$/,
+                  pattern: /^\(?(\d{3})\)?[- ]?(\d{4})[- ]?(\d{5})$/,
+
                   message: "Mobile phone number format is wrong! ",
                 },
               ]}
@@ -121,17 +119,13 @@ const PersonalInfo = () => {
             />
           </Col>
           <Col span={12}>
-            <Form.Item
+            <ProFormSelect
               name={["Personal Info", "gender"]}
               label="Gender"
+              width="md"
+              valueEnum={gender}
               rules={[{ required: true }]}
-            >
-              <Select placeholder="Gender" allowClear>
-                <Option value="male">male</Option>
-                <Option value="female">female</Option>
-                <Option value="other">other</Option>
-              </Select>
-            </Form.Item>
+            />
           </Col>
         </Row>
         <Row>
@@ -226,34 +220,6 @@ const PersonalInfo = () => {
             />
           </Col>
         </Row>
-      </ProCard>
-
-      <ProCard
-        title="Insurance"
-        bordered
-        headerBordered
-        collapsible
-        style={{
-          minWidth: 800,
-          marginBottom: 16,
-        }}
-      >
-        <ProFormRadio.Group
-          name={["Insurance Details", "HaveInsurance"]}
-          label="Do you have Insurance?"
-          radioType="button"
-          rules={[{ required: true }]}
-          options={[
-            {
-              label: "Yes",
-              value: true,
-            },
-            {
-              label: "No",
-              value: false,
-            },
-          ]}
-        />
       </ProCard>
     </>
   );

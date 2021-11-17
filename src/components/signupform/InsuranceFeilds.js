@@ -1,14 +1,11 @@
-import React from "react";
-
 import {
-  ProFormText,
   ProFormSelect,
+  ProFormText,
   ProFormUploadButton,
 } from "@ant-design/pro-form";
+import React from "react";
 
-import ProCard from "@ant-design/pro-card";
-
-const HaveInsurance = () => {
+function InsuranceFeilds() {
   const insuranceCompanies = [
     "Adamjee Insurance Company Ltd",
     "Asia Insurance Co Ltd",
@@ -24,13 +21,7 @@ const HaveInsurance = () => {
     "Premier Insurance Limited",
   ];
   return (
-    <ProCard
-      style={{
-        minWidth: 800,
-        marginBottom: 16,
-        maxWidth: "100%",
-      }}
-    >
+    <>
       <ProFormText
         name={["Insurance Details", "insuranceCardNumber"]}
         label="Insurance Card Number"
@@ -66,8 +57,8 @@ const HaveInsurance = () => {
         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         accept=".png,.jpg,.jpeg"
       />
-    </ProCard>
+    </>
   );
-};
+}
 
-export default HaveInsurance;
+export default InsuranceFeilds;

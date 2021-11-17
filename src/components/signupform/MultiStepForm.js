@@ -4,7 +4,8 @@ import ProForm, { StepsForm } from "@ant-design/pro-form";
 import ProCard from "@ant-design/pro-card";
 import { message } from "antd";
 import PersonalInfo from "./PersonalInfo";
-import HaveInsurance from "./HaveInsurance";
+import InsuranceForm from "./InsuranceForm";
+import FamilyForm from "./FamilyForm";
 
 const waitTime = () => {
   return new Promise((resolve) => {
@@ -14,7 +15,11 @@ const waitTime = () => {
   });
 };
 
-const MultiStepForm = () => {
+const MultiStepForm = ({
+  personalDetails,
+  insuranceDetails,
+  familyDetails,
+}) => {
   return (
     <>
       <StepsForm
@@ -33,31 +38,43 @@ const MultiStepForm = () => {
           name={["Personal Info"]}
           title="Personal"
           onFinish={(values) => {
+            personalDetails;
             console.log("object", values);
             return true;
           }}
         >
           <PersonalInfo />
         </StepsForm.StepForm>
+
+        {/* Personal Form End */}
+
         <StepsForm.StepForm
           name={["Insurnace"]}
           title="Insurance"
           onFinish={(values) => {
+            insuranceDetails;
             console.log("object", values);
             return true;
           }}
         >
-          <HaveInsurance />
+          <InsuranceForm />
         </StepsForm.StepForm>
-        <StepsForm.StepForm name="time" title="Family">
-          <ProCard
-            style={{
-              marginBottom: 16,
-              minWidth: 800,
-              maxWidth: "100%",
-            }}
-          ></ProCard>
+
+        {/* Insurance Form End */}
+
+        <StepsForm.StepForm
+          name="time"
+          title="Family"
+          onFinish={(values) => {
+            familyDetails;
+            console.log("object", values);
+            return true;
+          }}
+        >
+          <FamilyForm />
         </StepsForm.StepForm>
+
+        {/* Family Form End */}
       </StepsForm>
     </>
   );
