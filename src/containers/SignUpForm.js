@@ -3,10 +3,10 @@ import React from "react";
 import PageTitle from "../components/comon/PageTitle";
 import FamilyForm from "../components/signupform/FamilyForm";
 import HaveInsurance from "../components/signupform/HaveInsurance";
-import MultiStepForm from "../components/signupform/MultiStepForm";
 import PersonalInfo from "../components/signupform/PersonalInfo";
+import MultiStepForm from "../components/signupform/MultiStepForm";
 function Form() {
-  const snapshotUpload = (e) => {
+  const imageUpload = (e) => {
     if (Array.isArray(e)) {
       return e;
     }
@@ -33,7 +33,7 @@ function Form() {
     <Row>
       <Col span={24}>
         <PageTitle title={"Sign Up Form"} />
-        {/* <MultiStepForm snapshotUpload={snapshotUpload} /> */}
+        <MultiStepForm />
 
         {/* <PersonalInfo
           personalDetails={personalDetails}

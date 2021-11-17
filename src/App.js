@@ -5,6 +5,7 @@ import Homepage from "./containers/Homepage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Blog from "./containers/Blog";
 import SignUpForm from "./containers/SignUpForm";
+
 const { Header, Content, Footer } = Layout;
 
 function App() {
