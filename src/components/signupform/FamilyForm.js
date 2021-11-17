@@ -12,7 +12,7 @@ import MemberInsuranceFields from "./MemberInsuranceFields";
 
 function FamilyForm() {
   const [memberUUID, setMemberUUID] = useState([]);
-  const [memberInsuranceStatus, setMemberInsuranceStatus] = useState();
+  const [memberInsuranceStatus, setMemberInsuranceStatus] = useState([]);
   const [familyMembers, setFamilyMembers] = useState([]);
   const insuranceStatus = ["Same", "Other", "None"];
   return (
@@ -86,12 +86,20 @@ function FamilyForm() {
                         fieldKey={[fieldKey, "insuranceStatus"]}
                         label="Select your insurance status"
                         placeholder="Select your insurance status"
-                        onChange={(value) => setMemberInsuranceStatus(value)}
+                        onChange={(value) =>
+                          setMemberInsuranceStatus([
+                            {
+                              uuid: memberUUID[fieldKey],
+                              value,
+                            },
+                          ])
+                        }
                         options={insuranceStatus}
                         rules={[{ required: true }]}
                       />
                       <MemberInsuranceFields
                         insuranceStatusCheck={memberInsuranceStatus}
+                        memberUUID={memberUUID[fieldKey]}
                       />
                       <Button onClick={() => remove(name)} danger>
                         Remove Member
