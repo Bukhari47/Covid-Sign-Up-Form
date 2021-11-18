@@ -8,9 +8,8 @@ import {
 } from "@ant-design/pro-form";
 
 import ProCard from "@ant-design/pro-card";
-import { Checkbox, Form } from "antd";
-import InsuranceFeilds from "./InsuranceFeilds";
-import UninsureFeild from "./UninsureFeild";
+import InsuranceFeilds from "../comon/InsuranceFeilds";
+import UninsureFeild from "../comon/UninsureFeild";
 
 const InsuranceForm = () => {
   const [haveInsurance, setInsurance] = useState(true);
