@@ -1,42 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import InsuranceFeilds from "../comon/InsuranceFeilds";
 import UninsureFeild from "../comon/UninsureFeild";
 
-function MemberInsuranceFields({ insuranceStatusCheck, memberUUID }) {
-  const FilterField = () => {
-    return (
-      <>
-        {insuranceStatusCheck?.find((check) => {
-          memberUUID === check.uuid && check.value === "Other";
-          return <InsuranceFeilds />;
-        })}
-      </>
-    );
-  };
-
-  const [otherFields, setOtherFields] = useState([]);
-  const [noneField, setNoneField] = useState([]);
-
-  // setOtherFields([
-  //   ...otherFields,
-  // ]);
-  // setNoneField([
-  //   ...noneField,
-  //   check.uuid === memberUUID && check.value === "None",
-  // ]);
-  // });
-
-  console.log("Other-->", otherFields);
-  console.log("None", noneField);
-  return (
-    <>
-      <FilterField />
-    </>
+function MemberInsuranceFields({ insuranceStatusCheck, formName, key }) {
+  console.log(
+    "M I F ==>",
+    insuranceStatusCheck,
+    insuranceStatusCheck.find((check) => check.uuid === key),
+    key === insuranceStatusCheck.uuid,
+    key
   );
-  // return;
-  // if (uuid?.uuid === memberUUID && uuid?.value === "Other") {
-  //   return <InsuranceFeilds />;
-  // }
+  let uuid = insuranceStatusCheck.find((check) => {
+    return key === check.uuid;
+  });
+  if (uuid?.uuid === key && uuid?.value === "Other") {
+    return <InsuranceFeilds formName={formName} />;
+  }
+  if (uuid?.uuid === key && uuid?.value === "None") {
+    return <UninsureFeild formName={formName} />;
+  } else {
+    return <></>;
+  }
 }
 
 export default MemberInsuranceFields;

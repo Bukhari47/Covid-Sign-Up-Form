@@ -1,49 +1,31 @@
-import React from "react";
-import { Col, Row } from "antd";
-import ProForm, {
-  StepsForm,
-  ProFormText,
-  ProFormDatePicker,
-  ProFormSelect,
-  ProFormDigit,
-  ProFormRadio,
-  ProFormUploadButton,
-} from "@ant-design/pro-form";
+import React, { useState } from "react";
+import { Col, Row, Form, Input, Select, Upload, Card } from "antd";
 
 import { v4 as uuidv4 } from "uuid";
 import ProCard from "@ant-design/pro-card";
 
+const { Option } = Select;
+
 const PersonalInfo = () => {
   const gender = ["Male", "Female", "Other"];
   console.log("UUID", uuidv4());
+  const [fileList, setFileList] = useState([]);
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+
   return (
-    <>
-      <ProCard
-        title={["Personal Info"]}
-        bordered
-        headerBordered
-        collapsible
-        style={{
-          marginBottom: 16,
-          minWidth: 800,
-          maxWidth: "100%",
-        }}
-      >
-        <ProFormText
-          name={["Personal Info", "Personal UUID"]}
-          width="lg"
-          label="ID"
-          value={uuidv4()}
-          disabled
-        />
-        <Row>
+    <Row>
+      <Card title="Personal Info" bordered={false}>
+        <Form.Item name={["Personal Info", "Personal UUID"]} label="ID">
+          <Input disabled defaultValue={uuidv4()} />
+        </Form.Item>
+        <Row gutter={24}>
           <Col span={12}>
-            <ProFormText
+            <Form.Item
               name={["Personal Info", "firstName"]}
-              width="md"
               label="First Name"
               tooltip="Enter your first name"
-              placeholder="John"
               rules={[
                 { required: true },
                 {
@@ -51,15 +33,15 @@ const PersonalInfo = () => {
                   message: "Name does not contain Number or Speacial Character",
                 },
               ]}
-            />
+            >
+              <Input placeholder="Jhon" />
+            </Form.Item>
           </Col>
           <Col span={12}>
-            <ProFormText
+            <Form.Item
               name={["Personal Info", "lastName"]}
-              width="md"
               label="Last Name"
               tooltip="Enter your first name"
-              placeholder="Doe"
               rules={[
                 { required: true },
                 {
@@ -67,17 +49,18 @@ const PersonalInfo = () => {
                   message: "Name does not contain Number or Speacial Character",
                 },
               ]}
-            />
+            >
+              <Input placeholder="Doe" />
+            </Form.Item>
           </Col>
         </Row>
-        <Row>
+
+        <Row gutter={24}>
           <Col span={12}>
-            <ProFormText
+            <Form.Item
               name={["Personal Info", "email"]}
-              width="md"
               label="Email"
               tooltip="Enter your Email"
-              placeholder="John"
               rules={[
                 { type: "email", required: true },
                 {
@@ -86,14 +69,14 @@ const PersonalInfo = () => {
                   message: "Pattern should be in user@example.com",
                 },
               ]}
-            />
+            >
+              <Input placeholder="Jhondoe@example.com" type="email" />
+            </Form.Item>
           </Col>
           <Col span={12}>
-            <ProFormText
+            <Form.Item
               name={["Personal Info", "phone"]}
               label="Phone Number"
-              width="md"
-              placeholder={"Mobile phone number"}
               rules={[
                 {
                   required: true,
@@ -105,37 +88,46 @@ const PersonalInfo = () => {
                   message: "Mobile phone number format is wrong! ",
                 },
               ]}
-            />
+            >
+              <Input placeholder="923066524101" />
+            </Form.Item>
           </Col>
         </Row>
-        <Row>
+
+        <Row gutter={24}>
           <Col span={12}>
-            <ProFormDatePicker
+            <Form.Item
               name={["Personal Info", "DOB"]}
               label="Date Of Birth"
-              width="md"
-              placeholder=""
               rules={[{ required: true }]}
-            />
+            >
+              <Input placeholder="Jhondoe@example.com" type="date" />
+            </Form.Item>
           </Col>
           <Col span={12}>
-            <ProFormSelect
+            <Form.Item
               name={["Personal Info", "gender"]}
               label="Gender"
-              width="md"
-              valueEnum={gender}
               rules={[{ required: true }]}
-            />
+            >
+              <Select
+                placeholder="Select a option and change input text above"
+                allowClear
+              >
+                {gender.map((gender) => (
+                  <Option value={gender}>{gender}</Option>
+                ))}
+              </Select>
+            </Form.Item>
           </Col>
         </Row>
-        <Row>
+
+        <Row gutter={24}>
           <Col span={12}>
-            <ProFormText
+            <Form.Item
               name={["Personal Info", "address"]}
               label="Address"
-              width="md"
               tooltip="Enter your Address"
-              placeholder="Street no 11B House no 123A "
               rules={[
                 {
                   required: true,
@@ -145,14 +137,14 @@ const PersonalInfo = () => {
                   message: "Address does not conttain Special Charaters",
                 },
               ]}
-            />
+            >
+              <Input placeholder="Street no 1 house no 2" />
+            </Form.Item>
           </Col>
           <Col span={12}>
-            <ProFormText
+            <Form.Item
               name={["Personal Info", "city"]}
               label="City"
-              placeholder="Sargodha"
-              width="md"
               tooltip="Enter your City"
               rules={[
                 {
@@ -163,16 +155,34 @@ const PersonalInfo = () => {
                   message: "Address does not conttain Special Charaters",
                 },
               ]}
-            />
+            >
+              <Input placeholder="Sargodha" />
+            </Form.Item>
           </Col>
         </Row>
-        <Row>
+
+        <Row gutter={24}>
           <Col span={12}>
-            <ProFormText
+            <Form.Item
+              name={["Personal Info", "zipcode"]}
+              label="Zip Code"
+              rules={[
+                {
+                  required: true,
+                },
+                {
+                  pattern: /(^\d{5}$)|(^\d{5}-\d{4}$)/,
+                  message: "Please specify a valid US zip code.",
+                },
+              ]}
+            >
+              <Input type="number" placeholder="Street no 1 house no 2" />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
               name={["Personal Info", "State"]}
               label="State"
-              placeholder="Punjab"
-              width="md"
               tooltip="Enter your State"
               rules={[
                 {
@@ -183,45 +193,37 @@ const PersonalInfo = () => {
                   message: "Address does not conttain Special Charaters",
                 },
               ]}
-            />
+            >
+              <Input placeholder="State/Province" />
+            </Form.Item>
           </Col>
-          <Col span={12}>
-            <ProFormDigit
-              name={["Personal Info", "zipcode"]}
-              label="Zip Code"
-              width="md"
-              placeholder="12345"
+        </Row>
+
+        <Row>
+          <Col>
+            <Form.Item
+              name={["Personal Info", "Snapshot"]}
+              label="Snapshot"
+              tooltip="Upload your Snapshot"
               rules={[
                 {
                   required: true,
                 },
-                {
-                  pattern: /(^\d{5}$)|(^\d{5}-\d{4}$)/,
-                  message: "Please specify a valid US zip code.",
-                },
               ]}
-            />
+            >
+              <Upload
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChange}
+              >
+                {fileList.length < 1 && "+ Upload"}
+              </Upload>
+            </Form.Item>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <ProFormUploadButton
-              name={["Personal Info", "snapshot"]}
-              label="Snapshot"
-              placeholder="upload snapshot"
-              rules={[{ required: true }]}
-              max={1}
-              fieldProps={{
-                name: "snapshot",
-                listType: "picture-card",
-              }}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              accept=".png,.jpg,.jpeg"
-            />
-          </Col>
-        </Row>
-      </ProCard>
-    </>
+      </Card>
+    </Row>
   );
 };
 

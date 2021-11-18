@@ -1,44 +1,45 @@
 import React, { useState } from "react";
 
-import {
-  ProFormText,
-  ProFormSelect,
-  ProFormUploadButton,
-  ProFormRadio,
-} from "@ant-design/pro-form";
-
 import ProCard from "@ant-design/pro-card";
 import InsuranceFeilds from "../comon/InsuranceFeilds";
 import UninsureFeild from "../comon/UninsureFeild";
+import { Form, Radio } from "antd";
 
 const InsuranceForm = () => {
   const [haveInsurance, setInsurance] = useState(true);
   return (
-    <ProCard
-      style={{
-        minWidth: 800,
-        marginBottom: 16,
-        maxWidth: "100%",
-      }}
-    >
-      <ProFormRadio.Group
+    <ProCard className="proCardStyle">
+      <Form.Item
         name={["Insurance Details", "HaveInsurance"]}
         label="Do you have Insurance?"
-        radioType="button"
-        onChange={(e) => setInsurance(e.target.value)}
+        // onChange={(value) => setInsurance(value)}
         rules={[{ required: true }]}
-        options={[
-          {
-            label: "Yes",
-            value: true,
-          },
-          {
-            label: "No",
-            value: false,
-          },
-        ]}
-      />
-      {haveInsurance ? <InsuranceFeilds /> : <UninsureFeild />}
+      >
+        <Radio.Group
+          onChange={(e, value) => {
+            console.log("object", e, value);
+            setInsurance(e.target.value);
+          }}
+          value={haveInsurance}
+          options={[
+            {
+              label: "Yes",
+              value: true,
+            },
+            {
+              label: "No",
+              value: false,
+            },
+          ]}
+          optionType="button"
+          buttonStyle="solid"
+        />
+      </Form.Item>
+      {haveInsurance ? (
+        <InsuranceFeilds formName="Insurance Details" />
+      ) : (
+        <UninsureFeild />
+      )}
     </ProCard>
   );
 };
