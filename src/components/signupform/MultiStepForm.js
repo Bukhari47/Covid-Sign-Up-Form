@@ -36,7 +36,7 @@ const MultiStepForm = ({
         name={["Personal Info"]}
         title="Personal"
         onFinish={(values) => {
-          personalDetails;
+          personalDetails(values);
           console.log("object", values);
           return true;
         }}

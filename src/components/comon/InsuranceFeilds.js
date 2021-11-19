@@ -5,7 +5,7 @@ const { Option } = Select;
 
 function InsuranceFeilds({ formName }) {
   const [fileList, setFileList] = useState([]);
-  const onChange = ({ fileList: newFileList }) => {
+  const getFile = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
 
@@ -28,9 +28,9 @@ function InsuranceFeilds({ formName }) {
       <Row gutter={24}>
         <Col span={12}>
           <Form.Item
-            name={["Personal Info", "firstName"]}
-            label="First Name"
-            tooltip="Enter your first name"
+            name={[formName, "insuranceCardNumber"]}
+            label="Insurance Card Number"
+            tooltip="Enter your Insurance Card Number"
             rules={[
               {
                 required: true,
@@ -42,20 +42,16 @@ function InsuranceFeilds({ formName }) {
               },
             ]}
           >
-            <Input placeholder="Jhon" />
+            <Input placeholder="ab123456c" />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item
             name={[formName, "insuranceCompany"]}
             label="Select your insurance company"
-            placeholder="Select your insurance company"
             rules={[{ required: true }]}
           >
-            <Select
-              placeholder="Select a option and change input text above"
-              allowClear
-            >
+            <Select placeholder="Select your insurance company" allowClear>
               {insuranceCompanies.map((companies) => (
                 <Option value={companies}>{companies}</Option>
               ))}
@@ -68,7 +64,7 @@ function InsuranceFeilds({ formName }) {
         <Col span={12}>
           <Form.Item
             name={[formName, "Front"]}
-            label="Front and Back side image of Insurance Card"
+            label="Front side image of Insurance Card"
             rules={[{ required: true }]}
             tooltip="Upload your Front Side"
           >
@@ -76,7 +72,7 @@ function InsuranceFeilds({ formName }) {
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
               fileList={fileList}
-              onChange={onChange}
+              onChange={getFile}
             >
               {fileList.length < 1 && "+ Upload"}
             </Upload>
@@ -85,7 +81,7 @@ function InsuranceFeilds({ formName }) {
         <Col span={12}>
           <Form.Item
             name={[formName, "Front"]}
-            label="Front and Back side image of Insurance Card"
+            label="Back side image of Insurance Card"
             rules={[{ required: true }]}
             tooltip="Upload your Front Side"
           >
@@ -93,7 +89,7 @@ function InsuranceFeilds({ formName }) {
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
               fileList={fileList}
-              onChange={onChange}
+              onChange={getFile}
             >
               {fileList.length < 1 && "+ Upload"}
             </Upload>

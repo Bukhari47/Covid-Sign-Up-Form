@@ -12,12 +12,10 @@ const InsuranceForm = () => {
       <Form.Item
         name={["Insurance Details", "HaveInsurance"]}
         label="Do you have Insurance?"
-        // onChange={(value) => setInsurance(value)}
         rules={[{ required: true }]}
       >
         <Radio.Group
           onChange={(e, value) => {
-            console.log("object", e, value);
             setInsurance(e.target.value);
           }}
           value={haveInsurance}

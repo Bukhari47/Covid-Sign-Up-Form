@@ -12,34 +12,18 @@ function FamilyForm() {
   const [memberUUID, setMemberUUID] = useState([]);
   const [memberInsuranceStatus, setMemberInsuranceStatus] = useState([]);
   const insuranceStatus = ["Same", "Other", "None"];
-  console.log("array", { memberInsuranceStatus });
-  console.log("array", { memberUUID });
 
-  const handleStatusChange = (value) => {
-    console.log(
-      "Handle Status Change >=>",
-      value,
-      memberUUID[fieldKey],
-      memberInsuranceStatus.findIndex(
-        (MIS) => MIS.uuid === memberUUID[fieldKey]
-      )
+  const handleStatusChange = (value, uuid) => {
+    const uuidIndexFound = memberInsuranceStatus.findIndex(
+      (MIS) => MIS.uuid === uuid
     );
-    if (
-      memberInsuranceStatus.findIndex(
-        (MIS) => MIS.uuid === memberUUID[fieldKey]
-      )
-    ) {
-      setMemberInsuranceStatus([
-        ...memberInsuranceStatus,
-        {
-          value,
-        },
-      ]);
+    if (uuidIndexFound >= 0) {
+      memberInsuranceStatus[uuidIndexFound].value = value;
     } else {
       setMemberInsuranceStatus([
         ...memberInsuranceStatus,
         {
-          uuid: memberUUID[fieldKey],
+          uuid,
           value,
         },
       ]);
@@ -56,11 +40,8 @@ function FamilyForm() {
                 {fields.map(({ key, name, fieldKey, ...restField }) => (
                   <Row>
                     <Col span={24}>
-                      <Form.Item
-                        name={["Personal Info", "Personal UUID"]}
-                        label="ID"
-                      >
-                        <Input disabled defaultValue={uuidv4()} />
+                      <Form.Item name={[name, "Member UUID"]} label="ID">
+                        <Input disabled defaultValue={memberUUID[fieldKey]} />
                       </Form.Item>
                       <Col span={12}>
                         <Form.Item
@@ -112,13 +93,14 @@ function FamilyForm() {
                         name={[name, "insuranceStatus"]}
                         fieldKey={[fieldKey, "insuranceStatus"]}
                         label="Select your insurance status"
-                        // placeholder="Select your insurance status"
                         options={insuranceStatus}
                         rules={[{ required: true }]}
                       >
                         <Select
-                          onChange={handleStatusChange}
-                          placeholder="Select a option and change input text above"
+                          onChange={(value) =>
+                            handleStatusChange(value, memberUUID[fieldKey])
+                          }
+                          placeholder="Select gender"
                           allowClear
                         >
                           {insuranceStatus.map((status) => (
@@ -128,10 +110,19 @@ function FamilyForm() {
                       </Form.Item>
                       <MemberInsuranceFields
                         key={memberUUID[fieldKey]}
+                        MUUID={memberUUID[fieldKey]}
                         insuranceStatusCheck={memberInsuranceStatus}
-                        formName={name}
+                        formName="Family Members"
                       />
-                      <Button onClick={() => remove(name)} danger>
+                      <Button
+                        onClick={() => {
+                          memberInsuranceStatus.filter(
+                            (MIS) => MIS.uuid !== memberUUID[fieldKey]
+                          );
+                          remove(name);
+                        }}
+                        danger
+                      >
                         Remove Member
                         <MinusCircleOutlined />
                       </Button>
