@@ -2,6 +2,7 @@ import { Col, Row } from "antd";
 import React from "react";
 import PageTitle from "../components/comon/PageTitle";
 import MultiStepForm from "../components/signupform/MultiStepForm";
+import { petaintPersonalDetals } from "../redux/actions/signUpActions";
 function Form() {
   const imageUpload = (e) => {
     if (Array.isArray(e)) {
@@ -11,6 +12,7 @@ function Form() {
   };
 
   const personalDetails = (values) => {
+    petaintPersonalDetals(values);
     console.log("Personal Details", values);
   };
 
