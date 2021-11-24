@@ -25,7 +25,7 @@ const MultiStepForm = () => {
       <Row>
         <Col span={4}></Col>
         <Col span={16}>
-          <PersonalInfo personalValues={personalValues} />
+          <PersonalInfo />
           <InsuranceForm form={form} />
           <FamilyForm form={form} />
           <Button type="primary" htmlType="submit">
