@@ -8,7 +8,6 @@ function InsuranceFeilds({ formName }) {
   const getFile = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
-
   const insuranceCompanies = [
     "Adamjee Insurance Company Ltd",
     "Asia Insurance Co Ltd",
@@ -42,7 +41,7 @@ function InsuranceFeilds({ formName }) {
               },
             ]}
           >
-            <Input placeholder="ab123456c" />
+            <Input placeholder="AB123456C" />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -63,8 +62,8 @@ function InsuranceFeilds({ formName }) {
       <Row>
         <Col span={12}>
           <Form.Item
-            name={[formName, "Front"]}
-            label="Front side image of Insurance Card"
+            name={[formName, "InsuranceCard"]}
+            label="Front and Back side image of Insurance Card"
             rules={[{ required: true }]}
             tooltip="Upload your Front Side"
           >
@@ -74,24 +73,7 @@ function InsuranceFeilds({ formName }) {
               fileList={fileList}
               onChange={getFile}
             >
-              {fileList.length < 1 && "+ Upload"}
-            </Upload>
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item
-            name={[formName, "Front"]}
-            label="Back side image of Insurance Card"
-            rules={[{ required: true }]}
-            tooltip="Upload your Front Side"
-          >
-            <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              listType="picture-card"
-              fileList={fileList}
-              onChange={getFile}
-            >
-              {fileList.length < 1 && "+ Upload"}
+              {fileList.length < 2 && "+ Upload"}
             </Upload>
           </Form.Item>
         </Col>

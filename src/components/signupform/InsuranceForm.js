@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-
-import ProCard from "@ant-design/pro-card";
 import InsuranceFeilds from "../comon/InsuranceFeilds";
 import UninsureFeild from "../comon/UninsureFeild";
-import { Form, Radio } from "antd";
+import { Form, Radio, Card } from "antd";
 
-const InsuranceForm = () => {
+const InsuranceForm = ({ form }) => {
   const [haveInsurance, setInsurance] = useState(true);
   return (
-    <ProCard className="proCardStyle">
+    <Card title="Insurance Info" bordered={false} className="Card">
       <Form.Item
-        name={["Insurance Details", "HaveInsurance"]}
+        name={["Insurance", "HaveInsurance"]}
         label="Do you have Insurance?"
         rules={[{ required: true }]}
       >
         <Radio.Group
-          onChange={(e, value) => {
+          onChange={(e) => {
             setInsurance(e.target.value);
+            form.setFieldsValue({ Family: [] });
           }}
           value={haveInsurance}
           options={[
@@ -34,11 +33,11 @@ const InsuranceForm = () => {
         />
       </Form.Item>
       {haveInsurance ? (
-        <InsuranceFeilds formName="Insurance Details" />
+        <InsuranceFeilds formName="Insurance" />
       ) : (
-        <UninsureFeild />
+        <UninsureFeild formName="Insurance" />
       )}
-    </ProCard>
+    </Card>
   );
 };
 

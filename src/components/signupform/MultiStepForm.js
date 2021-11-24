@@ -1,75 +1,40 @@
-import React from "react";
-import { StepsForm } from "@ant-design/pro-form";
-
-import { Col, message, Row } from "antd";
+import React, { useState } from "react";
+import { Col, message, Row, Form, Card, Button } from "antd";
+import { v4 as uuidv4 } from "uuid";
 import PersonalInfo from "./PersonalInfo";
 import InsuranceForm from "./InsuranceForm";
 import FamilyForm from "./FamilyForm";
 
-const waitTime = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
+const MultiStepForm = () => {
+  const [form] = Form.useForm();
+  const [pateintDetails, setPateintDetails] = useState({
+    uuid: uuidv4(),
   });
-};
+  const [fields, setfields] = useState(0);
+  const formDetails = (values) => {
+    setPateintDetails({
+      uuid: uuidv4(),
+      ...values.Personal,
+      Insurance: values.Insurance,
+      Family: values.Family,
+    });
+  };
 
-const MultiStepForm = ({
-  personalDetails,
-  insuranceDetails,
-  familyDetails,
-}) => {
   return (
-    <StepsForm
-      onFinish={async (values) => {
-        console.log(values);
-        await waitTime(1000);
-        message.success("Saved");
-      }}
-      formProps={{
-        validateMessages: {
-          required: "${label} Field Cannot be empty",
-        },
-      }}
-    >
-      <StepsForm.StepForm
-        name={["Personal Info"]}
-        title="Personal"
-        onFinish={(values) => {
-          personalDetails(values);
-          console.log("object", values);
-          return true;
-        }}
-      >
-        <PersonalInfo />
-      </StepsForm.StepForm>
-
-      {/* Personal Form End */}
-
-      <StepsForm.StepForm
-        name={["Insurnace"]}
-        title="Insurance"
-        onFinish={(values) => {
-          insuranceDetails;
-          console.log("object", values);
-          return true;
-        }}
-      >
-        <InsuranceForm />
-      </StepsForm.StepForm>
-
-      <StepsForm.StepForm
-        name="time"
-        title="Family"
-        onFinish={(values) => {
-          familyDetails;
-          console.log("object", values);
-          return true;
-        }}
-      >
-        <FamilyForm />
-      </StepsForm.StepForm>
-    </StepsForm>
+    <Form name="Patinet Details" form={form} onFinish={formDetails}>
+      <Row>
+        <Col span={4}></Col>
+        <Col span={16}>
+          <PersonalInfo personalValues={personalValues} />
+          <InsuranceForm form={form} />
+          <FamilyForm form={form} />
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
+        </Col>
+        <Col span={4}></Col>
+      </Row>
+    </Form>
   );
 };
 export default MultiStepForm;

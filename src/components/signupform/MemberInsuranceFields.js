@@ -2,8 +2,7 @@ import React from "react";
 import InsuranceFeilds from "../comon/InsuranceFeilds";
 import UninsureFeild from "../comon/UninsureFeild";
 
-function MemberInsuranceFields({ insuranceStatusCheck, formName, MUUID }) {
-  console.log("M I F ==>", insuranceStatusCheck, formName, MUUID);
+function MemberInsuranceFields({ formName, MUUID, insuranceStatusCheck }) {
   let uuid = insuranceStatusCheck.find((check) => {
     return MUUID === check.uuid;
   });

@@ -4,7 +4,7 @@ import React from "react";
 function UninsureFeild() {
   return (
     <Form.Item
-      name={["Insurance Details", "No Insurance"]}
+      name={["Insurance", "No Insurance"]}
       rules={[
         {
           required: true,
