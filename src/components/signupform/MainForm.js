@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import { Col, message, Row, Form, Card, Button } from "antd";
-import { v4 as uuidv4 } from "uuid";
+import React, { useEffect } from "react";
+import { Col, Row, Form, Button } from "antd";
 import PersonalInfo from "./PersonalInfo";
 import InsuranceForm from "./InsuranceForm";
 import FamilyForm from "./FamilyForm";
+import { v4 as uuidv4 } from "uuid";
 
-const MultiStepForm = () => {
+const MainForm = () => {
   const [form] = Form.useForm();
-  const [pateintDetails, setPateintDetails] = useState({
-    uuid: uuidv4(),
-  });
-  const [fields, setfields] = useState(0);
   const formDetails = (values) => {
-    setPateintDetails({
-      uuid: uuidv4(),
-      ...values.Personal,
-      Insurance: values.Insurance,
-      Family: values.Family,
-    });
+    console.log(values);
   };
-
+  useEffect(() => {
+    form.setFieldsValue({
+      ...form,
+      Personal: {
+        UUID: uuidv4(),
+      },
+      Insurance: {},
+      Family: [],
+    });
+  });
   return (
     <Form name="Patinet Details" form={form} onFinish={formDetails}>
       <Row>
         <Col span={4}></Col>
         <Col span={16}>
-          <PersonalInfo />
+          <PersonalInfo form={form} />
           <InsuranceForm form={form} />
           <FamilyForm form={form} />
           <Button type="primary" htmlType="submit">
@@ -37,4 +37,4 @@ const MultiStepForm = () => {
     </Form>
   );
 };
-export default MultiStepForm;
+export default MainForm;

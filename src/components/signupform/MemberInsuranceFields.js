@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InsuranceFeilds from "../comon/InsuranceFeilds";
 import UninsureFeild from "../comon/UninsureFeild";
 
-function MemberInsuranceFields({ formName, MUUID, insuranceStatusCheck }) {
-  let uuid = insuranceStatusCheck.find((check) => {
-    return MUUID === check.uuid;
-  });
-  if (uuid?.uuid === MUUID && uuid?.value === "Other") {
-    return <InsuranceFeilds formName={formName} />;
+function MemberInsuranceFields({ formName, form, index }) {
+  const memberData = form.getFieldsValue().Family[index];
+  console.log("MIF-->", form.getFieldsValue().Family);
+  console.log("Member uuid", memberData);
+
+  if (form.getFieldsValue().Family[index]?.insuranceStatus === "Other") {
+    return <InsuranceFeilds form={form} formName={formName} />;
   }
-  if (uuid?.uuid === MUUID && uuid?.value === "None") {
-    return <UninsureFeild formName={formName} />;
+  if (form.getFieldsValue().Family[index]?.insuranceStatus === "None") {
+    return <UninsureFeild form={form} formName={formName} />;
   } else {
     return <></>;
   }

@@ -1,31 +1,25 @@
 import React, { useState } from "react";
 import { Col, Row, Form, Input, Select, Upload, Card } from "antd";
-import { v4 as uuidv4 } from "uuid";
+
 const { Option } = Select;
 
-const PersonalInfo = () => {
+const PersonalInfo = ({ form }) => {
   const gender = ["Male", "Female", "Other"];
-  const [personalInfo, setPersonalInfo] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    DOB: "",
-    Gender: "",
-    Address: "",
-    City: "",
-    Zipcode: "",
-    State: "",
-    Snapshot: "",
-  });
   const [fileList, setFileList] = useState([]);
   const handleImageUpload = ({ fileList: newFileList }) => {
-    setPersonalInfo({ ...personalInfo, Snapshot: newFileList });
     setFileList(newFileList);
   };
 
   return (
     <Card title="Personal Info">
+      <Form.Item
+        name={["Personal", "UUID"]}
+        label="ID"
+        initialValue={form.getFieldValue("uuid")}
+        tooltip="Your Registeration ID"
+      >
+        <Input disabled />
+      </Form.Item>
       <Row gutter={24}>
         <Col span={12}>
           <Form.Item
@@ -39,14 +33,9 @@ const PersonalInfo = () => {
                 message: "Name does not contain Number or Speacial Character",
               },
             ]}
+            hasFeedback
           >
-            <Input
-              placeholder="Jhon"
-              value={personalInfo.firstName}
-              onChange={(e) =>
-                setPersonalInfo({ ...personalInfo, firstName: e.target.value })
-              }
-            />
+            <Input placeholder="Jhon" />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -61,14 +50,9 @@ const PersonalInfo = () => {
                 message: "Name does not contain Number or Speacial Character",
               },
             ]}
+            hasFeedback
           >
-            <Input
-              placeholder="Doe"
-              value={personalInfo.lastName}
-              onChange={(e) =>
-                setPersonalInfo({ ...personalInfo, lastName: e.target.value })
-              }
-            />
+            <Input placeholder="Doe" />
           </Form.Item>
         </Col>
       </Row>
@@ -87,14 +71,9 @@ const PersonalInfo = () => {
                 message: "Pattern should be in user@example.com",
               },
             ]}
+            hasFeedback
           >
-            <Input
-              placeholder="Jhondoe@example.com"
-              type="email"
-              onChange={(e) =>
-                setPersonalInfo({ ...personalInfo, email: e.target.value })
-              }
-            />
+            <Input placeholder="Jhondoe@example.com" type="email" />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -112,17 +91,9 @@ const PersonalInfo = () => {
                 message: "Mobile phone number format is wrong! ",
               },
             ]}
+            hasFeedback
           >
-            <Input
-              placeholder="923066524101"
-              value={personalInfo.phoneNumber}
-              onChange={(e) =>
-                setPersonalInfo({
-                  ...personalInfo,
-                  phoneNumber: e.target.value,
-                })
-              }
-            />
+            <Input placeholder="923066524101" />
           </Form.Item>
         </Col>
       </Row>
@@ -133,15 +104,9 @@ const PersonalInfo = () => {
             name={["Personal", "DOB"]}
             label="Date Of Birth"
             rules={[{ required: true }]}
+            hasFeedback
           >
-            <Input
-              placeholder="Jhondoe@example.com"
-              type="date"
-              value={personalInfo.DOB}
-              onChange={(e) =>
-                setPersonalInfo({ ...personalInfo, DOB: e.target.value })
-              }
-            />
+            <Input placeholder="Jhondoe@example.com" type="date" />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -149,13 +114,10 @@ const PersonalInfo = () => {
             name={["Personal", "gender"]}
             label="Gender"
             rules={[{ required: true }]}
+            hasFeedback
           >
             <Select
               placeholder="Select a option and change input text above"
-              value={personalInfo.Gender}
-              onChange={(e) =>
-                setPersonalInfo({ ...personalInfo, Gender: e.value })
-              }
               allowClear
             >
               {gender.map((gender) => (
@@ -181,6 +143,7 @@ const PersonalInfo = () => {
                 message: "Address does not conttain Special Charaters",
               },
             ]}
+            hasFeedback
           >
             <Input placeholder="Street no 1 house no 2" />
           </Form.Item>
@@ -200,12 +163,7 @@ const PersonalInfo = () => {
               },
             ]}
           >
-            <Input
-              placeholder="Sargodha"
-              onChange={(e) =>
-                setPersonalInfo({ ...personalInfo, Address: e.target.value })
-              }
-            />
+            <Input placeholder="Sargodha" />
           </Form.Item>
         </Col>
       </Row>
@@ -224,14 +182,9 @@ const PersonalInfo = () => {
                 message: "Please specify a valid US zip code.",
               },
             ]}
+            hasFeedback
           >
-            <Input
-              type="number"
-              placeholder="Street no 1 house no 2"
-              onChange={(e) =>
-                setPersonalInfo({ ...personalInfo, Zipcode: e.target.value })
-              }
-            />
+            <Input type="number" placeholder="Street no 1 house no 2" />
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -248,13 +201,9 @@ const PersonalInfo = () => {
                 message: "Address does not conttain Special Charaters",
               },
             ]}
+            hasFeedback
           >
-            <Input
-              placeholder="State/Province"
-              onChange={(e) =>
-                setPersonalInfo({ ...personalInfo, State: e.target.value })
-              }
-            />
+            <Input placeholder="State/Province" />
           </Form.Item>
         </Col>
       </Row>
@@ -270,6 +219,7 @@ const PersonalInfo = () => {
                 required: true,
               },
             ]}
+            hasFeedback
           >
             <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"

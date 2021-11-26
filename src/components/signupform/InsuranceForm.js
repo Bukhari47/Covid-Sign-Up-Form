@@ -4,6 +4,7 @@ import UninsureFeild from "../comon/UninsureFeild";
 import { Form, Radio, Card } from "antd";
 
 const InsuranceForm = ({ form }) => {
+  const UUID = form.getFieldValue("uuid");
   const [haveInsurance, setInsurance] = useState(true);
   return (
     <Card title="Insurance Info" bordered={false} className="Card">
@@ -11,6 +12,7 @@ const InsuranceForm = ({ form }) => {
         name={["Insurance", "HaveInsurance"]}
         label="Do you have Insurance?"
         rules={[{ required: true }]}
+        initialValue={true}
       >
         <Radio.Group
           onChange={(e) => {
@@ -33,9 +35,9 @@ const InsuranceForm = ({ form }) => {
         />
       </Form.Item>
       {haveInsurance ? (
-        <InsuranceFeilds formName="Insurance" />
+        <InsuranceFeilds formName="Insurance" key={UUID} form={form} />
       ) : (
-        <UninsureFeild formName="Insurance" />
+        <UninsureFeild formName="Insurance" key={UUID} form={form} />
       )}
     </Card>
   );

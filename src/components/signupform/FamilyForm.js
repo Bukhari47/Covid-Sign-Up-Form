@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Form, Button, Row, Col, Input, Select, Card } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -8,28 +8,7 @@ import MemberInsuranceFields from "./MemberInsuranceFields";
 const { Option } = Select;
 
 function FamilyForm({ form }) {
-  const [memberUUID, setMemberUUID] = useState([]);
-  const [memberInsuranceStatus, setMemberInsuranceStatus] = useState([]);
   const insuranceStatus = ["Same", "Other", "None"];
-
-  const handleStatusChange = (value, uuid) => {
-    const uuidIndexFound = memberInsuranceStatus.findIndex(
-      (MIS) => MIS.uuid === uuid
-    );
-    if (uuidIndexFound >= 0) {
-      const tempStatus = [...memberInsuranceStatus];
-      tempStatus[uuidIndexFound].value = value;
-      setMemberInsuranceStatus(tempStatus);
-    } else {
-      setMemberInsuranceStatus([
-        ...memberInsuranceStatus,
-        {
-          uuid,
-          value,
-        },
-      ]);
-    }
-  };
 
   return (
     <Card title="Family Info" bordered={false} className="Card">
@@ -37,15 +16,18 @@ function FamilyForm({ form }) {
         <Form.List name="Family">
           {(fields, { add, remove }) => (
             <>
-              {fields.map(({ name, fieldKey, ...restField }) => (
+              {fields.map(({ name, fieldKey }) => (
                 <Row>
                   <Col span={24}>
-                    <Form.Item name={[name, "Member UUID"]} label="ID">
-                      <Input disabled defaultValue={memberUUID[fieldKey]} />
+                    <Form.Item
+                      initialValue={uuidv4()}
+                      name={[name, "MemberUUID"]}
+                      label="ID"
+                    >
+                      <Input disabled />
                     </Form.Item>
                     <Col span={12}>
                       <Form.Item
-                        {...restField}
                         name={[name, "firstName"]}
                         fieldKey={[fieldKey, "firstName"]}
                         label="First Name"
@@ -63,7 +45,6 @@ function FamilyForm({ form }) {
                     </Col>
                     <Col span={12}>
                       <Form.Item
-                        {...restField}
                         name={[name, "lastName"]}
                         fieldKey={[fieldKey, "lastName"]}
                         label="Last Name"
@@ -80,25 +61,29 @@ function FamilyForm({ form }) {
                       </Form.Item>
                     </Col>
                     <Form.Item
-                      {...restField}
-                      fieldKey={[fieldKey, "DOB"]}
                       name={[name, "DOB"]}
+                      fieldKey={[fieldKey, "DOB"]}
                       label="Date Of Birth"
                       rules={[{ required: true }]}
                     >
                       <Input placeholder="DOB" type="date" />
                     </Form.Item>
                     <Form.Item
-                      {...restField}
                       name={[name, "insuranceStatus"]}
                       fieldKey={[fieldKey, "insuranceStatus"]}
                       label="Select your insurance status"
                       options={insuranceStatus}
+                      initialValue=""
                       rules={[{ required: true }]}
                     >
                       <Select
-                        onChange={(value) => {
-                          handleStatusChange(value, memberUUID[fieldKey]);
+                        onChange={(e) => {
+                          console.log("Changes", e);
+                          form.setFieldValue("insuranceStatus", e);
+                          console.log(
+                            "Insurance Status",
+                            form.setFieldValue("insuranceStatus")
+                          );
                         }}
                         placeholder="Select Insurance Status"
                         allowClear
@@ -113,18 +98,22 @@ function FamilyForm({ form }) {
                       </Select>
                     </Form.Item>
                     <MemberInsuranceFields
-                      MUUID={memberUUID[fieldKey]}
-                      insuranceStatusCheck={memberInsuranceStatus}
+                      form={form}
+                      // field={fieldKey}
+                      index={fieldKey}
                       formName="Family"
                     />
                     <Button
                       onClick={() => {
-                        memberInsuranceStatus.filter(
-                          (MIS) => MIS.uuid !== memberUUID[fieldKey]
+                        console.log(
+                          "Remove Clicked",
+                          form.getFieldsValue().Family.splice(name, 1)
                         );
+
                         remove(name);
                       }}
                       danger
+                      block
                     >
                       Remove Member
                       <MinusCircleOutlined />
@@ -136,7 +125,6 @@ function FamilyForm({ form }) {
                 <Button
                   type="dashed"
                   onClick={() => {
-                    setMemberUUID([...memberUUID, uuidv4()]);
                     add();
                   }}
                   block

@@ -3,10 +3,11 @@ import { Form, Row, Col, Input, Select, Upload } from "antd";
 
 const { Option } = Select;
 
-function InsuranceFeilds({ formName }) {
+function InsuranceFeilds({ formName, form }) {
   const [fileList, setFileList] = useState([]);
-  const getFile = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
+  console.log("Insurance Fields...!", form.getFieldsValue());
+  const uploadImageHandle = ({ fileList: newImagesList }) => {
+    setFileList(newImagesList);
   };
   const insuranceCompanies = [
     "Adamjee Insurance Company Ltd",
@@ -22,6 +23,7 @@ function InsuranceFeilds({ formName }) {
     "PICIC (Pakistan Industrial Credit Investment Corporation)",
     "Premier Insurance Limited",
   ];
+
   return (
     <>
       <Row gutter={24}>
@@ -40,6 +42,7 @@ function InsuranceFeilds({ formName }) {
                   "Insurance card pattern didn't match pattern should be `ZK 123456 A`",
               },
             ]}
+            hasFeedback
           >
             <Input placeholder="AB123456C" />
           </Form.Item>
@@ -49,6 +52,7 @@ function InsuranceFeilds({ formName }) {
             name={[formName, "insuranceCompany"]}
             label="Select your insurance company"
             rules={[{ required: true }]}
+            hasFeedback
           >
             <Select placeholder="Select your insurance company" allowClear>
               {insuranceCompanies.map((companies) => (
@@ -62,7 +66,7 @@ function InsuranceFeilds({ formName }) {
       <Row>
         <Col span={12}>
           <Form.Item
-            name={[formName, "InsuranceCard"]}
+            name={[formName, "insuranceCard"]}
             label="Front and Back side image of Insurance Card"
             rules={[{ required: true }]}
             tooltip="Upload your Front Side"
@@ -71,7 +75,7 @@ function InsuranceFeilds({ formName }) {
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
               fileList={fileList}
-              onChange={getFile}
+              onChange={uploadImageHandle}
             >
               {fileList.length < 2 && "+ Upload"}
             </Upload>

@@ -1,24 +1,17 @@
 import React from "react";
 import { Col, Row } from "antd";
 import PageTitle from "../components/comon/PageTitle";
-import MultiStepForm from "../components/signupform/MultiStepForm";
+import MainForm from "../components/signupform/MainForm";
 
-function Form() {
-  const personalDetails = (values) => {};
-  const insuranceDetails = (values) => {};
-  const familyDetails = (values) => {};
+function SignUpForm() {
   return (
     <Row>
       <Col span={24}>
         <PageTitle title={"Sign Up Form"} />
-        <MultiStepForm
-          personalDetails={personalDetails}
-          insuranceDetails={insuranceDetails}
-          familyDetails={familyDetails}
-        />
+        <MainForm />
       </Col>
     </Row>
   );
 }
 
-export default Form;
+export default SignUpForm;
