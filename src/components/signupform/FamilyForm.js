@@ -84,7 +84,7 @@ function FamilyForm({ form }) {
                         placeholder="Select Insurance Status"
                         allowClear
                       >
-                        {form.getFieldsValue().Insurance.HaveInsurance ? (
+                        {form.getFieldsValue().Insurance?.HaveInsurance ? (
                           <Option value="Same">Same</Option>
                         ) : (
                           <Option disabled>Same</Option>
@@ -100,14 +100,6 @@ function FamilyForm({ form }) {
                     />
                     <Button
                       onClick={() => {
-                        const newArray = form
-                          .getFieldsValue()
-                          .Family.filter(
-                            (delMemeber) =>
-                              delMemeber !==
-                              form.getFieldsValue().Family[field.name]
-                          );
-                        form.setFieldsValue({ Family: newArray });
                         remove(field.name);
                       }}
                       danger

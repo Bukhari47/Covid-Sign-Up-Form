@@ -19,7 +19,7 @@ const MainForm = () => {
       Insurance: {},
       Family: [],
     });
-  });
+  }, []);
   return (
     <Form name="Patinet Details" form={form} onFinish={formDetails}>
       <Row>
