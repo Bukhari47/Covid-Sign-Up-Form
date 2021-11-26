@@ -1,10 +1,12 @@
 import { Form, Checkbox, Col, Row } from "antd";
 import React from "react";
 
-function UninsureFeild() {
+function UninsureFeild({ formName, field }) {
+  const name = field !== undefined ? field.name : formName;
   return (
     <Form.Item
-      name={["Insurance", "No Insurance"]}
+      name={[name, "No_Insurance"]}
+      fieldKey={[field?.key, "No_Insurance"]}
       rules={[
         {
           required: true,

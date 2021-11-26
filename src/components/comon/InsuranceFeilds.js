@@ -3,9 +3,9 @@ import { Form, Row, Col, Input, Select, Upload } from "antd";
 
 const { Option } = Select;
 
-function InsuranceFeilds({ formName, form }) {
+function InsuranceFeilds({ formName, form, field }) {
+  const name = field !== undefined ? field.name : formName;
   const [fileList, setFileList] = useState([]);
-  console.log("Insurance Fields...!", form.getFieldsValue());
   const uploadImageHandle = ({ fileList: newImagesList }) => {
     setFileList(newImagesList);
   };
@@ -29,8 +29,9 @@ function InsuranceFeilds({ formName, form }) {
       <Row gutter={24}>
         <Col span={12}>
           <Form.Item
-            name={[formName, "insuranceCardNumber"]}
+            name={[name, "insuranceCardNumber"]}
             label="Insurance Card Number"
+            fieldKey={[field?.key, "insuranceCardNumber"]}
             tooltip="Enter your Insurance Card Number"
             rules={[
               {
@@ -49,8 +50,9 @@ function InsuranceFeilds({ formName, form }) {
         </Col>
         <Col span={12}>
           <Form.Item
-            name={[formName, "insuranceCompany"]}
+            name={[name, "insuranceCompany"]}
             label="Select your insurance company"
+            fieldKey={[field?.key, "insuranceCompany"]}
             rules={[{ required: true }]}
             hasFeedback
           >
@@ -66,12 +68,14 @@ function InsuranceFeilds({ formName, form }) {
       <Row>
         <Col span={12}>
           <Form.Item
-            name={[formName, "insuranceCard"]}
+            name={[name, "insuranceCard"]}
             label="Front and Back side image of Insurance Card"
             rules={[{ required: true }]}
+            fieldKey={[field?.key, "insuranceCard"]}
             tooltip="Upload your Front Side"
           >
             <Upload
+              accept={[".jpg", ".png", ".jpeg"]}
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
               fileList={fileList}

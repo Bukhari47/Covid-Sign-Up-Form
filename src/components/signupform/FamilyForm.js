@@ -16,20 +16,21 @@ function FamilyForm({ form }) {
         <Form.List name="Family">
           {(fields, { add, remove }) => (
             <>
-              {fields.map(({ name, fieldKey }) => (
+              {fields.map((field) => (
                 <Row>
                   <Col span={24}>
                     <Form.Item
                       initialValue={uuidv4()}
-                      name={[name, "MemberUUID"]}
+                      name={[field.name, "MemberUUID"]}
+                      fieldKey={[field.fieldKey, "MemberUUID"]}
                       label="ID"
                     >
                       <Input disabled />
                     </Form.Item>
                     <Col span={12}>
                       <Form.Item
-                        name={[name, "firstName"]}
-                        fieldKey={[fieldKey, "firstName"]}
+                        name={[field.name, "firstName"]}
+                        fieldKey={[field.fieldKey, "firstName"]}
                         label="First Name"
                         rules={[
                           { required: true, message: `Field is required` },
@@ -45,8 +46,8 @@ function FamilyForm({ form }) {
                     </Col>
                     <Col span={12}>
                       <Form.Item
-                        name={[name, "lastName"]}
-                        fieldKey={[fieldKey, "lastName"]}
+                        name={[field.name, "lastName"]}
+                        fieldKey={[field.key, "lastName"]}
                         label="Last Name"
                         rules={[
                           { required: true, message: `Field is required` },
@@ -61,16 +62,16 @@ function FamilyForm({ form }) {
                       </Form.Item>
                     </Col>
                     <Form.Item
-                      name={[name, "DOB"]}
-                      fieldKey={[fieldKey, "DOB"]}
+                      name={[field.name, "DOB"]}
+                      fieldKey={[field.key, "DOB"]}
                       label="Date Of Birth"
                       rules={[{ required: true }]}
                     >
                       <Input placeholder="DOB" type="date" />
                     </Form.Item>
                     <Form.Item
-                      name={[name, "insuranceStatus"]}
-                      fieldKey={[fieldKey, "insuranceStatus"]}
+                      name={[field.name, "insuranceStatus"]}
+                      fieldKey={[field.key, "insuranceStatus"]}
                       label="Select your insurance status"
                       options={insuranceStatus}
                       initialValue=""
@@ -78,12 +79,7 @@ function FamilyForm({ form }) {
                     >
                       <Select
                         onChange={(e) => {
-                          console.log("Changes", e);
-                          form.setFieldValue("insuranceStatus", e);
-                          console.log(
-                            "Insurance Status",
-                            form.setFieldValue("insuranceStatus")
-                          );
+                          form.setFieldsValue({ insuranceStatus: e });
                         }}
                         placeholder="Select Insurance Status"
                         allowClear
@@ -99,18 +95,20 @@ function FamilyForm({ form }) {
                     </Form.Item>
                     <MemberInsuranceFields
                       form={form}
-                      // field={fieldKey}
-                      index={fieldKey}
+                      field={field}
                       formName="Family"
                     />
                     <Button
                       onClick={() => {
-                        console.log(
-                          "Remove Clicked",
-                          form.getFieldsValue().Family.splice(name, 1)
-                        );
-
-                        remove(name);
+                        const newArray = form
+                          .getFieldsValue()
+                          .Family.filter(
+                            (delMemeber) =>
+                              delMemeber !==
+                              form.getFieldsValue().Family[field.name]
+                          );
+                        form.setFieldsValue({ Family: newArray });
+                        remove(field.name);
                       }}
                       danger
                       block
