@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import InsuranceFeilds from "../comon/InsuranceFeilds";
-import UninsureFeild from "../comon/UninsureFeild";
+import InsuranceFeilds from "../comon/form_fields/InsuranceFeilds";
+import UninsureFeild from "../comon/form_fields/UninsureFeild";
 
 function MemberInsuranceFields({ formName, form, field }) {
   if (form.getFieldsValue().Family[field.name]?.insuranceStatus === "Other") {

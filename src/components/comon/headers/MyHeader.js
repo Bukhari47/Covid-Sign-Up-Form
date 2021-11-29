@@ -8,7 +8,7 @@ function Header() {
         <Link to="/">Home</Link>
       </Menu.Item>
       <Menu.Item key="2" link="/blog">
-        <Link to="/Blog">Blog</Link>
+        <Link to="/Blogs">Blog</Link>
       </Menu.Item>
       <Menu.Item key="3" link="/form">
         <Link to="/Signup">Sign Up</Link>

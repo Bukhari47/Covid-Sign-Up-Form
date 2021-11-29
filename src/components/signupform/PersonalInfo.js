@@ -116,10 +116,7 @@ const PersonalInfo = ({ form }) => {
             rules={[{ required: true }]}
             hasFeedback
           >
-            <Select
-              placeholder="Select a option and change input text above"
-              allowClear
-            >
+            <Select placeholder="Select gender" allowClear>
               {gender.map((gender) => (
                 <Option value={gender}>{gender}</Option>
               ))}

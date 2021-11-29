@@ -1,10 +1,11 @@
 import React from "react";
-import MyHeader from "./components/comon/MyHeader";
+import MyHeader from "./components/comon/headers/MyHeader";
 import { Layout } from "antd";
 import Homepage from "./containers/Homepage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Blog from "./containers/Blog";
+import Blogs from "./containers/Blogs";
 import SignUpForm from "./containers/SignUpForm";
+import PageNotFound from "./containers/PageNotFound";
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,8 +22,9 @@ function App() {
         >
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/Blog" element={<Blog />} />
+            <Route path="/Blogs" element={<Blogs />} />
             <Route path="/Signup" element={<SignUpForm />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Content>
         <Footer style={{ textAlign: "center" }}>
