@@ -14,15 +14,12 @@ function App() {
   return (
     <Router>
       <Layout>
-        <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+        <Header className="Header-style">
           <Suspense fallback="Loading...">
             <LazyHeader />
           </Suspense>
         </Header>
-        <Content
-          className="site-layout"
-          style={{ padding: "0 50px", marginTop: 64 }}
-        >
+        <Content className="site-layout">
           <Routes>
             <Route
               path="/"
@@ -58,7 +55,7 @@ function App() {
             />
           </Routes>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
+        <Footer className="Text-Center">
           Developed in React by using Ant Design and Less
         </Footer>
       </Layout>

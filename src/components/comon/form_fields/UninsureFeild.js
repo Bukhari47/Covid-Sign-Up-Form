@@ -15,7 +15,7 @@ function UninsureFeild({ formName, field }) {
         },
       ]}
     >
-      <Checkbox.Group style={{ width: "100%" }}>
+      <Checkbox.Group className="Checkbox-Style">
         <Row>
           <Col>
             <Checkbox value="Accept No Inscurance">
