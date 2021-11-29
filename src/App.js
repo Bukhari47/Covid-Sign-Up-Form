@@ -15,7 +15,9 @@ function App() {
     <Router>
       <Layout>
         <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-          <LazyHeader />
+          <Suspense fallback="Loading...">
+            <LazyHeader />
+          </Suspense>
         </Header>
         <Content
           className="site-layout"
