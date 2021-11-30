@@ -1,74 +1,77 @@
 import React from "react";
 
-import { Form, Button, Row, Col, Input, Select, Card } from "antd";
+import { Form, Button, Row, Col, Input, Select, Card, DatePicker } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
 import MemberInsuranceFields from "./MemberInsuranceFields";
 
 const { Option } = Select;
 
-function FamilyForm({ form }) {
+function FamilyForm({ fieldCol, form }) {
   const insuranceStatus = ["Same", "Other", "None"];
-
   return (
-    <Card title="Family Info" bordered={false} className="Card">
-      <Col span={24}>
-        <Form.List name="Family">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map((field) => (
+    <Card title="Family Info">
+      <Form.List name="Family">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map((field) => (
+              <Row>
+                <Col {...fieldCol}>
+                  <Form.Item
+                    initialValue={uuidv4()}
+                    name={[field.name, "memberUUID"]}
+                    fieldKey={[field.fieldKey, "memberUUID"]}
+                    label="ID"
+                  >
+                    <Input disabled />
+                  </Form.Item>
+                </Col>
                 <Row>
-                  <Col span={24}>
+                  <Col {...fieldCol}>
                     <Form.Item
-                      initialValue={uuidv4()}
-                      name={[field.name, "MemberUUID"]}
-                      fieldKey={[field.fieldKey, "MemberUUID"]}
-                      label="ID"
+                      name={[field.name, "firstName"]}
+                      fieldKey={[field.fieldKey, "firstName"]}
+                      label="First Name"
+                      rules={[
+                        { required: true, message: `Field is required` },
+                        {
+                          pattern: /^[a-zA-Z ]+$/,
+                          message:
+                            "Name does not contain Number or Speacial Character",
+                        },
+                      ]}
                     >
-                      <Input disabled />
+                      <Input placeholder="Jhon" />
                     </Form.Item>
-                    <Col span={12}>
-                      <Form.Item
-                        name={[field.name, "firstName"]}
-                        fieldKey={[field.fieldKey, "firstName"]}
-                        label="First Name"
-                        rules={[
-                          { required: true, message: `Field is required` },
-                          {
-                            pattern: /^[a-zA-Z ]+$/,
-                            message:
-                              "Name does not contain Number or Speacial Character",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="Jhon" />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item
-                        name={[field.name, "lastName"]}
-                        fieldKey={[field.key, "lastName"]}
-                        label="Last Name"
-                        rules={[
-                          { required: true, message: `Field is required` },
-                          {
-                            pattern: /^[a-zA-Z ]+$/,
-                            message:
-                              "Name does not contain Number or Speacial Character",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="Doe" />
-                      </Form.Item>
-                    </Col>
+                  </Col>
+                  <Col {...fieldCol}>
+                    <Form.Item
+                      name={[field.name, "lastName"]}
+                      fieldKey={[field.key, "lastName"]}
+                      label="Last Name"
+                      rules={[
+                        { required: true, message: `Field is required` },
+                        {
+                          pattern: /^[a-zA-Z ]+$/,
+                          message:
+                            "Name does not contain Number or Speacial Character",
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Doe" />
+                    </Form.Item>
+                  </Col>
+                  <Col {...fieldCol}>
                     <Form.Item
                       name={[field.name, "DOB"]}
                       fieldKey={[field.key, "DOB"]}
                       label="Date Of Birth"
                       rules={[{ required: true }]}
                     >
-                      <Input placeholder="DOB" type="date" />
+                      <DatePicker />
                     </Form.Item>
+                  </Col>
+                  <Col {...fieldCol}>
                     <Form.Item
                       name={[field.name, "insuranceStatus"]}
                       fieldKey={[field.key, "insuranceStatus"]}
@@ -93,11 +96,14 @@ function FamilyForm({ form }) {
                         <Option value="None">None</Option>
                       </Select>
                     </Form.Item>
-                    <MemberInsuranceFields
-                      form={form}
-                      field={field}
-                      formName="Family"
-                    />
+                  </Col>
+                  <MemberInsuranceFields
+                    form={form}
+                    field={field}
+                    fieldCol={fieldCol}
+                    formName="Family"
+                  />
+                  <Col {...fieldCol}>
                     <Button
                       onClick={() => {
                         remove(field.name);
@@ -110,7 +116,9 @@ function FamilyForm({ form }) {
                     </Button>
                   </Col>
                 </Row>
-              ))}
+              </Row>
+            ))}
+            <Col {...fieldCol}>
               <Form.Item>
                 <Button
                   type="dashed"
@@ -123,10 +131,10 @@ function FamilyForm({ form }) {
                   Add Family Member
                 </Button>
               </Form.Item>
-            </>
-          )}
-        </Form.List>
-      </Col>
+            </Col>
+          </>
+        )}
+      </Form.List>
     </Card>
   );
 }

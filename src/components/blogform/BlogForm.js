@@ -25,20 +25,16 @@ function BlogForm({ blogDetails }) {
                 <Form.Item
                   name="Title"
                   label="Blog Title"
-                  tooltip="Enter your blog title"
                   rules={[{ required: true }]}
-                  hasFeedback
                 >
                   <Input />
                 </Form.Item>
               </Col>
-              <Col span={20}>
+              <Col {...fieldCol}>
                 <Form.Item
                   name="Content"
                   label="Blog Content"
-                  tooltip="Enter your blog content"
                   rules={[{ required: true }]}
-                  hasFeedback
                 >
                   <TextArea />
                 </Form.Item>
@@ -47,11 +43,9 @@ function BlogForm({ blogDetails }) {
                 name="Image"
                 label="Blog Image"
                 rules={[{ required: true }]}
-                tooltip="Upload your Cover Image"
               >
                 <Upload
                   accept={[".jpg", ".png", ".jpeg"]}
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                   listType="picture-card"
                   fileList={fileList}
                   onChange={uploadImageHandle}

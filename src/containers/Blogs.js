@@ -1,7 +1,7 @@
 import { Col, Divider, Row } from "antd";
 import React, { useState } from "react";
-import BlogForm from "../components/blog_form/BlogForm";
-import BlogsCard from "../components/blog_form/BlogsCard";
+import BlogForm from "../components/blogform/BlogForm";
+import BlogsCard from "../components/blogform/BlogsCard";
 import PageTitle from "../components/comon/headers/PageTitle";
 import { v4 as uuidv4 } from "uuid";
 
@@ -25,7 +25,7 @@ function Blogs() {
         <PageTitle title={"Blogs"} subtitle={"Stay updated"} />
         <BlogForm blogDetails={blogDetails} />
         <Divider />
-        <Row gutter={[20, 40]}>
+        <Row gutter={[20, 20]}>
           {blogs?.map((blog) => (
             <Col>
               <BlogsCard blog={blog} />

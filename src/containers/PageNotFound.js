@@ -5,9 +5,7 @@ const { Text } = Typography;
 function PageNotFound() {
   return (
     <Row>
-      <Col>
-        <Text strong>Opps...!!! Page not found...!!!</Text>
-      </Col>
+      <Text strong>Opps...!!! Page not found...!!!</Text>
     </Row>
   );
 }

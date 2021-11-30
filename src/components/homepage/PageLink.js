@@ -6,8 +6,8 @@ function PageLink() {
   return (
     <Card>
       <Row>
-        <Col span={21}>Lets register your self and your family on form</Col>
-        <Col span={3}>
+        <Col span={20}>Lets register your self and your family on form</Col>
+        <Col span={4}>
           <Link to="/Signup">
             <Button>Register Now</Button>
           </Link>

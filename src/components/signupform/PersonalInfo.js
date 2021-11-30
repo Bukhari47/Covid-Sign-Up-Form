@@ -1,31 +1,44 @@
 import React, { useState } from "react";
-import { Col, Row, Form, Input, Select, Upload, Card } from "antd";
+import {
+  Col,
+  Row,
+  Form,
+  Input,
+  Select,
+  Upload,
+  Card,
+  DatePicker,
+  Divider,
+  Button,
+} from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
-const PersonalInfo = ({ form }) => {
+const PersonalInfo = ({ fieldCol, form }) => {
   const gender = ["Male", "Female", "Other"];
-  const [fileList, setFileList] = useState([]);
-  const handleImageUpload = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
 
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
   return (
     <Card title="Personal Info">
-      <Form.Item
-        name={["Personal", "UUID"]}
-        label="ID"
-        initialValue={form.getFieldValue("uuid")}
-        tooltip="Your Registeration ID"
-      >
-        <Input disabled />
-      </Form.Item>
-      <Row gutter={24}>
-        <Col span={12}>
+      <Col {...fieldCol}>
+        <Form.Item
+          name={["Personal", "UUID"]}
+          label="ID"
+          initialValue={form.getFieldValue("uuid")}
+        >
+          <Input disabled />
+        </Form.Item>
+      </Col>
+      <Row>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "firstName"]}
             label="First Name"
-            tooltip="Enter your first name"
             rules={[
               { required: true },
               {
@@ -33,16 +46,14 @@ const PersonalInfo = ({ form }) => {
                 message: "Name does not contain Number or Speacial Character",
               },
             ]}
-            hasFeedback
           >
             <Input placeholder="Jhon" />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "lastName"]}
             label="Last Name"
-            tooltip="Enter your first name"
             rules={[
               { required: true },
               {
@@ -50,19 +61,15 @@ const PersonalInfo = ({ form }) => {
                 message: "Name does not contain Number or Speacial Character",
               },
             ]}
-            hasFeedback
           >
             <Input placeholder="Doe" />
           </Form.Item>
         </Col>
-      </Row>
 
-      <Row gutter={24}>
-        <Col span={12}>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "email"]}
             label="Email"
-            tooltip="Enter your Email"
             rules={[
               { type: "email", required: true },
               {
@@ -71,12 +78,12 @@ const PersonalInfo = ({ form }) => {
                 message: "Pattern should be in user@example.com",
               },
             ]}
-            hasFeedback
           >
             <Input placeholder="Jhondoe@example.com" type="email" />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col {...fieldCol}>
+          {" "}
           <Form.Item
             name={["Personal", "phone"]}
             label="Phone Number"
@@ -91,30 +98,24 @@ const PersonalInfo = ({ form }) => {
                 message: "Mobile phone number format is wrong! ",
               },
             ]}
-            hasFeedback
           >
             <Input placeholder="923066524101" />
           </Form.Item>
         </Col>
-      </Row>
-
-      <Row gutter={24}>
-        <Col span={12}>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "DOB"]}
             label="Date Of Birth"
             rules={[{ required: true }]}
-            hasFeedback
           >
-            <Input placeholder="Jhondoe@example.com" type="date" />
+            <DatePicker />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "gender"]}
             label="Gender"
             rules={[{ required: true }]}
-            hasFeedback
           >
             <Select placeholder="Select gender" allowClear>
               {gender.map((gender) => (
@@ -123,14 +124,11 @@ const PersonalInfo = ({ form }) => {
             </Select>
           </Form.Item>
         </Col>
-      </Row>
 
-      <Row gutter={24}>
-        <Col span={12}>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "address"]}
             label="Address"
-            tooltip="Enter your Address"
             rules={[
               {
                 required: true,
@@ -140,16 +138,14 @@ const PersonalInfo = ({ form }) => {
                 message: "Address does not conttain Special Charaters",
               },
             ]}
-            hasFeedback
           >
             <Input placeholder="Street no 1 house no 2" />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "city"]}
             label="City"
-            tooltip="Enter your City"
             rules={[
               {
                 required: true,
@@ -163,10 +159,7 @@ const PersonalInfo = ({ form }) => {
             <Input placeholder="Sargodha" />
           </Form.Item>
         </Col>
-      </Row>
-
-      <Row gutter={24}>
-        <Col span={12}>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "zipcode"]}
             label="Zip Code"
@@ -179,16 +172,14 @@ const PersonalInfo = ({ form }) => {
                 message: "Please specify a valid US zip code.",
               },
             ]}
-            hasFeedback
           >
             <Input type="number" placeholder="Street no 1 house no 2" />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "State"]}
             label="State"
-            tooltip="Enter your State"
             rules={[
               {
                 required: true,
@@ -198,33 +189,22 @@ const PersonalInfo = ({ form }) => {
                 message: "Address does not conttain Special Charaters",
               },
             ]}
-            hasFeedback
           >
             <Input placeholder="State/Province" />
           </Form.Item>
         </Col>
-      </Row>
-
-      <Row>
-        <Col>
+        <Col {...fieldCol}>
           <Form.Item
             name={["Personal", "Snapshot"]}
             label="Snapshot"
-            tooltip="Upload your Snapshot"
             rules={[
               {
                 required: true,
               },
             ]}
-            hasFeedback
           >
-            <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              listType="picture-card"
-              fileList={fileList}
-              onChange={handleImageUpload}
-            >
-              {fileList.length < 1 && "+ Upload"}
+            <Upload maxCount={2} customRequest={dummyRequest}>
+              <Button icon={<UploadOutlined />}>Upload</Button>
             </Upload>
           </Form.Item>
         </Col>
