@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Col, Row, Form, Button } from "antd";
-import PersonalInfo from "./PersonalInfo";
-import InsuranceForm from "./InsuranceForm";
-import FamilyForm from "./FamilyForm";
+import PersonalInfo from "./PersonalInfo.jsx";
+import InsuranceForm from "./InsuranceForm.jsx";
+import FamilyForm from "./FamilyForm.jsx";
 import { v4 as uuidv4 } from "uuid";
 
 const MainForm = ({ formDetails }) => {
@@ -45,7 +45,7 @@ const MainForm = ({ formDetails }) => {
   };
   return (
     <Form name="Patinet Details" form={form} onFinish={formDetails}>
-      <Row gutter={[16, 16]}>
+      <Row>
         <Col {...spacesOnLeftRight}></Col>
         <Col {...formLayout}>
           <PersonalInfo fieldCol={fieldCol} form={form} />

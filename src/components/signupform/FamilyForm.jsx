@@ -1,9 +1,19 @@
 import React from "react";
 
-import { Form, Button, Row, Col, Input, Select, Card, DatePicker } from "antd";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  Input,
+  Select,
+  Card,
+  DatePicker,
+  Divider,
+} from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
-import MemberInsuranceFields from "./MemberInsuranceFields";
+import MemberInsuranceFields from "./MemberInsuranceFields.jsx";
 
 const { Option } = Select;
 
@@ -68,7 +78,7 @@ function FamilyForm({ fieldCol, form }) {
                       label="Date Of Birth"
                       rules={[{ required: true }]}
                     >
-                      <DatePicker />
+                      <DatePicker className="datepicker-width" />
                     </Form.Item>
                   </Col>
                   <Col {...fieldCol}>
@@ -116,6 +126,7 @@ function FamilyForm({ fieldCol, form }) {
                     </Button>
                   </Col>
                 </Row>
+                <Divider />
               </Row>
             ))}
             <Col {...fieldCol}>

@@ -1,8 +1,8 @@
 import { Col, Divider, Row } from "antd";
 import React, { useState } from "react";
-import BlogForm from "../components/blogform/BlogForm";
-import BlogsCard from "../components/blogform/BlogsCard";
-import PageTitle from "../components/comon/headers/PageTitle";
+import BlogForm from "../components/blogform/BlogForm.jsx";
+import BlogsCard from "../components/blogform/BlogsCard.jsx";
+import PageTitle from "../components/comon/headers/PageTitle.jsx";
 import { v4 as uuidv4 } from "uuid";
 
 function Blogs() {
@@ -23,9 +23,15 @@ function Blogs() {
     <Row>
       <Col span={24}>
         <PageTitle title={"Blogs"} subtitle={"Stay updated"} />
-        <BlogForm blogDetails={blogDetails} />
+        <Row>
+          <Col span={4}></Col>
+          <Col span={16}>
+            <BlogForm blogDetails={blogDetails} />
+          </Col>
+          <Col span={4}></Col>
+        </Row>
         <Divider />
-        <Row gutter={[20, 20]}>
+        <Row>
           {blogs?.map((blog) => (
             <Col>
               <BlogsCard blog={blog} />

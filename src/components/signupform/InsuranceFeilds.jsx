@@ -4,10 +4,12 @@ import { UploadOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
-function InsuranceFeilds({ formName, field, fieldCol }) {
+function InsuranceFeilds({ formName, form, field, fieldCol }) {
   const name = field !== undefined ? field.name : formName;
 
   const dummyRequest = ({ file, onSuccess }) => {
+    form.getFieldsValue();
+    // form.setFieldsValue({ Family: [] });
     setTimeout(() => {
       onSuccess("ok");
     }, 0);

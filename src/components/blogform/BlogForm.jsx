@@ -14,14 +14,21 @@ function BlogForm({ blogDetails }) {
       form.resetFields();
     }, 100);
   };
-
+  const fieldCol = {
+    xxl: { span: 11, offset: 1 },
+    xl: { span: 11, offset: 1 },
+    lg: { span: 11, offset: 1 },
+    md: { span: 24 },
+    xs: { span: 24 },
+    sm: { span: 24 },
+  };
   return (
     <Card>
       <Row>
         <Col span={24}>
           <Form form={form} onFinish={submitHandler}>
             <Row>
-              <Col span={8}>
+              <Col {...fieldCol}>
                 <Form.Item
                   name="Title"
                   label="Blog Title"
@@ -39,20 +46,22 @@ function BlogForm({ blogDetails }) {
                   <TextArea />
                 </Form.Item>
               </Col>
-              <Form.Item
-                name="Image"
-                label="Blog Image"
-                rules={[{ required: true }]}
-              >
-                <Upload
-                  accept={[".jpg", ".png", ".jpeg"]}
-                  listType="picture-card"
-                  fileList={fileList}
-                  onChange={uploadImageHandle}
+              <Col {...fieldCol}>
+                <Form.Item
+                  name="Image"
+                  label="Blog Image"
+                  rules={[{ required: true }]}
                 >
-                  {fileList.length < 2 && "+ Upload"}
-                </Upload>
-              </Form.Item>
+                  <Upload
+                    accept={[".jpg", ".png", ".jpeg"]}
+                    listType="picture-card"
+                    fileList={fileList}
+                    onChange={uploadImageHandle}
+                  >
+                    {fileList.length < 2 && "+ Upload"}
+                  </Upload>
+                </Form.Item>
+              </Col>
             </Row>
             <Button type="primary" htmlType="submit">
               Submit

@@ -108,7 +108,7 @@ const PersonalInfo = ({ fieldCol, form }) => {
             label="Date Of Birth"
             rules={[{ required: true }]}
           >
-            <DatePicker />
+            <DatePicker className="datepicker-width" />
           </Form.Item>
         </Col>
         <Col {...fieldCol}>

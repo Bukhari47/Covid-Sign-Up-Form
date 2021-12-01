@@ -1,13 +1,9 @@
 import React, { Suspense, lazy } from "react";
 import { Layout } from "antd";
-import MainContent from "./MainContent";
+import MainContent from "./MainContent.jsx";
 
-const LazyHeader = lazy(() =>
-  import("../../components/comon/headers/MainHeader")
-);
-const LazyFooter = lazy(() =>
-  import("../../components/comon/footer/MainFooter")
-);
+const LazyHeader = lazy(() => import("../comon/headers/MainHeader.jsx"));
+const LazyFooter = lazy(() => import("../comon/footer/MainFooter.jsx"));
 
 const { Header, Footer } = Layout;
 function MainLayout() {
@@ -20,6 +16,7 @@ function MainLayout() {
       </Header>
 
       <MainContent />
+
       <Footer>
         <Suspense fallback="Loading...">
           <LazyFooter />

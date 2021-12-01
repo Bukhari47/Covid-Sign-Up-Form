@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import InsuranceFeilds from "../comon/form_fields/InsuranceFeilds";
-import UninsureFeild from "../comon/form_fields/UninsureFeild";
-import { Form, Radio, Card, Row, Col } from "antd";
+import InsuranceFeilds from "./InsuranceFeilds.jsx";
+import UninsureFeild from "./UninsureFeild.jsx";
+import { Form, Radio, Card, Col } from "antd";
 
 const InsuranceForm = ({ fieldCol, form }) => {
   const UUID = form.getFieldValue("uuid");

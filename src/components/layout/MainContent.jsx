@@ -1,13 +1,14 @@
-import { Layout } from "antd";
 import React, { Suspense, lazy } from "react";
 
 import { Routes, Route } from "react-router-dom";
-const LazyHomePage = lazy(() => import("../Homepage"));
-const LazySignUpForm = lazy(() => import("../SignUpForm"));
-const LazyPageNotFound = lazy(() => import("../PageNotFound"));
-const LazyBlogs = lazy(() => import("../Blogs"));
+const LazyHomePage = lazy(() => import("../../containers/Homepage"));
+const LazySignUpForm = lazy(() => import("../../containers/SignUpForm"));
+const LazyPageNotFound = lazy(() => import("../../containers/PageNotFound"));
+const LazyBlogs = lazy(() => import("../../containers/Blogs"));
 
+import { Layout } from "antd";
 const { Content } = Layout;
+
 function MainContent() {
   return (
     <Content>
