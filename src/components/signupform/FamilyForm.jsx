@@ -25,17 +25,19 @@ function FamilyForm({ fieldCol, form }) {
         {(fields, { add, remove }) => (
           <>
             {fields.map((field) => (
-              <Row>
-                <Col {...fieldCol}>
-                  <Form.Item
-                    initialValue={uuidv4()}
-                    name={[field.name, "memberUUID"]}
-                    fieldKey={[field.fieldKey, "memberUUID"]}
-                    label="ID"
-                  >
-                    <Input disabled />
-                  </Form.Item>
-                </Col>
+              <>
+                <Row>
+                  <Col {...fieldCol}>
+                    <Form.Item
+                      initialValue={uuidv4()}
+                      name={[field.name, "memberUUID"]}
+                      fieldKey={[field.fieldKey, "memberUUID"]}
+                      label="ID"
+                    >
+                      <Input disabled />
+                    </Form.Item>
+                  </Col>
+                </Row>
                 <Row>
                   <Col {...fieldCol}>
                     <Form.Item
@@ -107,6 +109,7 @@ function FamilyForm({ fieldCol, form }) {
                       </Select>
                     </Form.Item>
                   </Col>
+
                   <MemberInsuranceFields
                     form={form}
                     field={field}
@@ -125,9 +128,9 @@ function FamilyForm({ fieldCol, form }) {
                       <MinusCircleOutlined />
                     </Button>
                   </Col>
+                  <Divider />
                 </Row>
-                <Divider />
-              </Row>
+              </>
             ))}
             <Col {...fieldCol}>
               <Form.Item>
